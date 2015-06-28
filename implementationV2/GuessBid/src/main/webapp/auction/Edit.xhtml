@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AuctionEditDlg" widgetVar="AuctionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bid.EditAuctionTitle}">
+            <h:form id="AuctionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{auctionController.selected != null}">
+                        <p:outputLabel value="#{bid.EditAuctionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{auctionController.selected.id}" title="#{bid.EditAuctionTitle_id}" required="true" requiredMessage="#{bid.EditAuctionRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bid.EditAuctionLabel_auctionName}" for="auctionName" />
+                        <p:inputText id="auctionName" value="#{auctionController.selected.auctionName}" title="#{bid.EditAuctionTitle_auctionName}" />
+                        <p:outputLabel value="#{bid.EditAuctionLabel_initialPrice}" for="initialPrice" />
+                        <p:inputText id="initialPrice" value="#{auctionController.selected.initialPrice}" title="#{bid.EditAuctionTitle_initialPrice}" />
+                        <p:outputLabel value="#{bid.EditAuctionLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{auctionController.selected.startDate}" title="#{bid.EditAuctionTitle_startDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bid.EditAuctionLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{auctionController.selected.endDate}" title="#{bid.EditAuctionTitle_endDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bid.EditAuctionLabel_status}" for="status" />
+                        <p:selectBooleanCheckbox id="status" value="#{auctionController.selected.status}" />
+                        <p:outputLabel value="#{bid.EditAuctionLabel_goodsId}" for="goodsId" />
+                        <p:selectOneMenu id="goodsId" value="#{auctionController.selected.goodsId}" >
+                            <f:selectItem itemLabel="#{bid.SelectOneMessage}"/>
+                            <f:selectItems value="#{goodsController.itemsAvailableSelectOne}"
+                                           var="goodsIdItem"
+                                           itemValue="#{goodsIdItem}"
+                                           
+                                           itemLabel="#{goodsIdItem.goodsName}"
+                                           />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bid.EditAuctionLabel_sellerId}" for="sellerId" />
+                        <p:selectOneMenu id="sellerId" value="#{auctionController.selected.sellerId}" >
+                            <f:selectItem itemLabel="#{bid.SelectOneMessage}"/>
+                            <f:selectItems value="#{sellerController.itemsAvailableSelectOne}"
+                                           var="sellerIdItem"
+                                           itemValue="#{sellerIdItem}"
+                                           itemLabel="#{sellerIdItem.fname}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{auctionController.update}" value="#{bid.Save}" update="display,:AuctionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AuctionEditDialog');"/>
+                    <p:commandButton value="#{bid.Cancel}" onclick="AuctionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
