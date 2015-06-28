@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SellerViewDlg" widgetVar="SellerViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bid.ViewSellerTitle}">
+            <h:form id="SellerViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{sellerController.selected != null}">
+                        <h:outputText value="#{bid.ViewSellerLabel_id}"/>
+                        <h:outputText value="#{sellerController.selected.id}" title="#{bid.ViewSellerTitle_id}"/>
+                        <h:outputText value="#{bid.ViewSellerLabel_fname}"/>
+                        <h:outputText value="#{sellerController.selected.fname}" title="#{bid.ViewSellerTitle_fname}"/>
+                        <h:outputText value="#{bid.ViewSellerLabel_lname}"/>
+                        <h:outputText value="#{sellerController.selected.lname}" title="#{bid.ViewSellerTitle_lname}"/>
+                        <h:outputText value="#{bid.ViewSellerLabel_email}"/>
+                        <h:outputText value="#{sellerController.selected.email}" title="#{bid.ViewSellerTitle_email}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bid.Close}" onclick="SellerViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

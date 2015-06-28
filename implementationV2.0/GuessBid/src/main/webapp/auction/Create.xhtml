@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AuctionCreateDlg" widgetVar="AuctionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bid.CreateAuctionTitle}">
+            <h:form id="AuctionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{auctionController.selected != null}">
+                        <p:outputLabel rendered="false" value="#{bid.CreateAuctionLabel_id}" for="id" />
+                        <p:inputText rendered="false" id="id" value="#{auctionController.selected.id}" title="#{bid.CreateAuctionTitle_id}" required="true" requiredMessage="#{bid.CreateAuctionRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bid.CreateAuctionLabel_auctionName}" for="auctionName" />
+                        <p:inputText id="auctionName" value="#{auctionController.selected.auctionName}" title="#{bid.CreateAuctionTitle_auctionName}" />
+                        <p:outputLabel value="#{bid.CreateAuctionLabel_initialPrice}" for="initialPrice" />
+                        <p:inputText id="initialPrice" value="#{auctionController.selected.initialPrice}" title="#{bid.CreateAuctionTitle_initialPrice}" />
+                        <p:outputLabel value="#{bid.CreateAuctionLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{auctionController.selected.startDate}" title="#{bid.EditAuctionTitle_startDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bid.CreateAuctionLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{auctionController.selected.endDate}" title="#{bid.EditAuctionTitle_endDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bid.CreateAuctionLabel_status}" for="status" />
+                        <p:selectBooleanCheckbox id="status" value="#{auctionController.selected.status}" />
+                        <p:outputLabel value="#{bid.CreateAuctionLabel_goodsId}" for="goodsId" />
+                        <p:selectOneMenu id="goodsId" value="#{auctionController.selected.goodsId}" >
+                             <f:selectItem itemLabel="#{bid.SelectOneMessage}"/>
+                            <f:selectItems value="#{goodsController.itemsAvailableSelectOne}"
+                                           var="goodsIdItem"
+                                           itemValue="#{goodsIdItem}"
+                                           itemLabel="#{goodsIdItem.goodsName}"
+                                           />
+                            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bid.CreateAuctionLabel_sellerId}" for="sellerId" />
+                        <p:selectOneMenu id="sellerId" value="#{auctionController.selected.sellerId}" >
+                              <f:selectItem itemLabel="#{bid.SelectOneMessage}"/>
+                            <f:selectItems value="#{sellerController.itemsAvailableSelectOne}"
+                                           var="sellerIdItem"
+                                           itemValue="#{sellerIdItem}"
+                                           itemLabel="#{sellerIdItem.fname}"
+                                           />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{auctionController.create}" value="#{bid.Save}" update="display,:AuctionListForm:datalist,:growl" oncomplete="handleSubmit(args,'AuctionCreateDialog');"/>
+                    <p:commandButton value="#{bid.Cancel}" onclick="AuctionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

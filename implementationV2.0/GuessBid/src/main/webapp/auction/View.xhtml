@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AuctionViewDlg" widgetVar="AuctionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bid.ViewAuctionTitle}">
+            <h:form id="AuctionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{auctionController.selected != null}">
+                        <h:outputText value="#{bid.ViewAuctionLabel_id}"/>
+                        <h:outputText value="#{auctionController.selected.id}" title="#{bid.ViewAuctionTitle_id}"/>
+                        <h:outputText value="#{bid.ViewAuctionLabel_auctionName}"/>
+                        <h:outputText value="#{auctionController.selected.auctionName}" title="#{bid.ViewAuctionTitle_auctionName}"/>
+                        <h:outputText value="#{bid.ViewAuctionLabel_initialPrice}"/>
+                        <h:outputText value="#{auctionController.selected.initialPrice}" title="#{bid.ViewAuctionTitle_initialPrice}"/>
+                        <h:outputText value="#{bid.ViewAuctionLabel_startDate}"/>
+                        <h:outputText value="#{auctionController.selected.startDate}" title="#{bid.ViewAuctionTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bid.ViewAuctionLabel_endDate}"/>
+                        <h:outputText value="#{auctionController.selected.endDate}" title="#{bid.ViewAuctionTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bid.ViewAuctionLabel_status}"/>
+                        <p:selectBooleanCheckbox value="#{auctionController.selected.status}" disabled="true"/>
+                        <h:outputText value="#{bid.ViewAuctionLabel_goodsId}"/>
+                        <h:outputText value="#{auctionController.selected.goodsId}" title="#{bid.ViewAuctionTitle_goodsId}"/>
+                        <h:outputText value="#{bid.ViewAuctionLabel_sellerId}"/>
+                        <h:outputText value="#{auctionController.selected.sellerId}" title="#{bid.ViewAuctionTitle_sellerId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bid.Close}" onclick="AuctionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

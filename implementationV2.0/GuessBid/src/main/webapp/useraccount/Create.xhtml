@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template_1.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Creat Account"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+
+            <h:form id="UseraccountCreateForm">
+
+                <p:panel header="Creat Account" style="width: 550px;">
+                    <h:panelGrid columns="2" cellpadding="2">
+                        <p:outputLabel rendered="false" value="#{bid.CreateUseraccountLabel_id}" for="id" />
+                        <p:inputText rendered="false" id="id" value="#{useraccountController.selected.id}" title="#{bid.CreateUseraccountTitle_id}" required="true" requiredMessage="#{bid.CreateUseraccountRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bid.CreateUseraccountLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{useraccountController.selected.username}" title="#{bid.CreateUseraccountTitle_username}" />
+                        <p:outputLabel value="#{bid.CreateUseraccountLabel_password}" for="password" />
+                        <p:password id="password" value="#{useraccountController.selected.password}" title="#{bid.CreateUseraccountTitle_password}" />
+
+                        <p:outputLabel value="Confirm Password" for="Cpassword" />
+                        <p:password id="Cpassword" value="#{useraccountController.confirmpassword}" title="#{bid.CreateUseraccountTitle_password}" />
+
+
+                        <p:outputLabel value="#{bid.CreateUseraccountLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{useraccountController.selected.email}" title="#{bid.CreateUseraccountTitle_email}"
+                                     requiredMessage="Please enter your email address."
+                                     validatorMessage="Invalid email format">
+                            <f:validateRegex
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </p:inputText>
+                        <p:watermark for="email" value="Email Address *" />
+                        <p:message for="email" />
+                        <p:outputLabel value="#{bid.CreateUseraccountLabel_role}" for="role" />
+
+                        <p:selectOneMenu id="role"  value="#{useraccountController.selected.role}">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItem itemLabel="buyer One" itemValue="Buyer" />
+                            <f:selectItem itemLabel="seller" itemValue="Seller" />
+
+                        </p:selectOneMenu>
+                                        <!--<p:inputText id="role" value="#{useraccountController.selected.role}" title="#{bid.CreateUseraccountTitle_role}" />-->
+                    </h:panelGrid>
+                    <p:commandButton  type="submit" icon="ui-icon-plus"  actionListener="#{useraccountController.createg()}" value="#{bid.Save}" update=":UseraccountCreateForm" />
+
+                    <p:commandButton value="#{bid.Cancel}" />
+                </p:panel>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>
