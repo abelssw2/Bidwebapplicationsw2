@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UseraccountEditDlg" widgetVar="UseraccountEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bid.EditUseraccountTitle}">
+            <h:form id="UseraccountEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{useraccountController.selected != null}">
+                        <p:outputLabel rendered="false" value="#{bid.EditUseraccountLabel_id}" for="id" />
+                        <p:inputText  rendered="false" id="id" value="#{useraccountController.selected.id}" title="#{bid.EditUseraccountTitle_id}" required="true" requiredMessage="#{bid.EditUseraccountRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bid.EditUseraccountLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{useraccountController.selected.username}" title="#{bid.EditUseraccountTitle_username}" />
+                        <p:outputLabel rendered="false" value="#{bid.EditUseraccountLabel_password}" for="password" />
+                        <p:inputText rendered="false" id="password" value="#{useraccountController.selected.password}" title="#{bid.EditUseraccountTitle_password}" />
+                        <p:outputLabel value="#{bid.EditUseraccountLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{useraccountController.selected.email}" title="#{bid.EditUseraccountTitle_email}" />
+                        <p:outputLabel value="#{bid.EditUseraccountLabel_role}" for="role" />
+                        <p:inputText id="role" value="#{useraccountController.selected.role}" title="#{bid.EditUseraccountTitle_role}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{useraccountController.update}" value="#{bid.Save}" update="display,:UseraccountListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UseraccountEditDialog');"/>
+                    <p:commandButton value="#{bid.Cancel}" onclick="UseraccountEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

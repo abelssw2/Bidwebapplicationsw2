@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaymentEditDlg" widgetVar="PaymentEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bid.EditPaymentTitle}">
+            <h:form id="PaymentEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paymentController.selected != null}">
+                        <p:outputLabel rendered="false" value="#{bid.EditPaymentLabel_id}" for="id" />
+                        <p:inputText rendered="false" id="id" value="#{paymentController.selected.id}" title="#{bid.EditPaymentTitle_id}" required="true" requiredMessage="#{bid.EditPaymentRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bid.EditPaymentLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{paymentController.selected.amount}" title="#{bid.EditPaymentTitle_amount}" />
+                        <p:outputLabel value="#{bid.EditPaymentLabel_auctionId}" for="auctionId" />
+                        <p:selectOneMenu id="auctionId" value="#{paymentController.selected.auctionId}" >
+                            <f:selectItem itemLabel="#{bid.SelectOneMessage}"/>
+                            <f:selectItems value="#{auctionController.itemsAvailableSelectOne}"
+                                           var="auctionIdItem"
+                                           itemValue="#{auctionIdItem}"
+                                           itemLabel="#{auctionIdItem.auctionName}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bid.EditPaymentLabel_buyerId}" for="buyerId" />
+                        <p:selectOneMenu id="buyerId" value="#{paymentController.selected.buyerId}" >
+                            <f:selectItem itemLabel="#{bid.SelectOneMessage}"/>
+                            <f:selectItems value="#{useraccountController.itemsBuyerSelectOne}"
+                                           var="buyerIdItem"
+                                           itemValue="#{buyerIdItem}"
+                                           itemLabel="#{buyerIdItem.username}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paymentController.update}" value="#{bid.Save}" update="display,:PaymentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PaymentEditDialog');"/>
+                    <p:commandButton value="#{bid.Cancel}" onclick="PaymentEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>
+    </h:head>
+
+    <h:body>
+
+        <center>
+            <br/>
+            <br/>
+            
+
+
+            <h:form id ="form">
+                <p:messages id="message" autoUpdate="true" closable="true" showDetail="false"/>
+
+
+                <p:panel header="Login Form" style="top: 500px; width: 550px;">
+
+                       <p:graphicImage style="height:100px; width: 150px" url="/resources/images/logo.jpg" />
+
+                    <h:panelGrid id="grid"  columns="2" cellpadding="4" >
+
+
+                        <p:outputLabel for="username" value="User Name" />
+
+                      <p:inputText  id="username" value="#{loginBean.uname}"  label="username" />
+                     
+
+                        <p:outputLabel for="pass" value="Password"/>
+
+
+                        <p:password id="pass"  value="#{loginBean.password}" />
+                      
+
+                        <br />
+                        <p:commandButton id="login" update="grid" value="Login" action="#{loginBean.loginProject()}"></p:commandButton>
+                      <p:commandLink   id="creataccount"  value="Create Account"  action="#{loginBean.creataccount()}" />
+                    </h:panelGrid>
+                  
+                </p:panel>
+            </h:form>
+
+
+
+            <div><h:messages ></h:messages></div>
+
+        </center>
+
+    </h:body>
+
+</html>

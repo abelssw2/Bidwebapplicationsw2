@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="WinerEditDlg" widgetVar="WinerEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bid.EditWinerTitle}">
+            <h:form id="WinerEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{winerController.selected != null}">
+                        <p:outputLabel rendered="false" value="#{bid.EditWinerLabel_id}" for="id" />
+                        <p:inputText rendered="false" id="id" value="#{winerController.selected.id}" title="#{bid.EditWinerTitle_id}" required="true" requiredMessage="#{bid.EditWinerRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bid.EditWinerLabel_winPrice}" for="winPrice" />
+                        <p:inputText id="winPrice" value="#{winerController.selected.winPrice}" title="#{bid.EditWinerTitle_winPrice}" />
+                        <p:outputLabel value="#{bid.EditWinerLabel_auctionId}" for="auctionId" />
+                        <p:selectOneMenu id="auctionId" value="#{winerController.selected.auctionId}" >
+                            <f:selectItem itemLabel="#{bid.SelectOneMessage}"/>
+                            <f:selectItems value="#{auctionController.itemsAvailableSelectOne}"
+                                           var="auctionIdItem"
+                                           itemValue="#{auctionIdItem}"
+                                           itemLabel="#{auctionIdItem.auctionName}"
+                                           />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bid.EditWinerLabel_buyerId}" for="buyerId" />
+                        <p:selectOneMenu id="buyerId" value="#{winerController.selected.buyerId}" >
+                            <f:selectItem itemLabel="#{bid.SelectOneMessage}"/>
+                            <f:selectItems value="#{useraccountController.itemsBuyerSelectOne}"
+                                           var="buyerIdItem"
+                                           itemValue="#{buyerIdItem}"
+                                           itemLabel="#{buyerIdItem.username}"
+                                           />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{winerController.update}" value="#{bid.Save}" update="display,:WinerListForm:datalist,:growl" oncomplete="handleSubmit(args, 'WinerEditDialog');"/>
+                    <p:commandButton value="#{bid.Cancel}" onclick="WinerEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
